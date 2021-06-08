@@ -13,13 +13,17 @@ mongo -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD<<EOF
 db=db.getSiblingDB('stronghold');
 db=db.getSiblingDB('analysis');
 use stronghold;
-db.createUser({
+db.createUser(
+  {
   user:  '$SCRAPER_USERNAME',
   pwd: '$SCRAPER_PASSWORD',
   roles: [{
     role: 'readWrite',
     db: 'stronghold'
-  }, {
+  }]
+  });
+db.createUser(
+  {
   user:  '$SERVER_USERNAME',
   pwd: '$SERVER_PASSWORD',
   roles: [{

@@ -17,10 +17,8 @@ services:
     links:
         - mongo
     environment: 
-        MONGO_INITDB_ROOT_USERNAME: iamtheone
-        MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
-        MONGO_INITDB_USERNAME: theuser
-        MONGO_INITDB_PASSWORD: thepassword
+        SCRAPER_USERNAME: theuser 
+        SCRAPER_PASSWORD: thepassword
         # MONGO_INITDB_DATABASE: stronghold
     networks: 
         - db
@@ -56,7 +54,15 @@ services:
     build:
         context: ./server
         dockerfile: ./Dockerfile
-
+    restart: always
+    ports:
+        - 3005:3005
+    environment: 
+        PORT: 3005
+        SERVER_USERNAME: theserver
+        SERVER_PASSWORD: theserverpassword
+    networks:
+        - db
         
 networks: 
     db:
