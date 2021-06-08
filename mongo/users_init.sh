@@ -29,13 +29,7 @@ db.createUser(
   roles: [{
     role: 'read',
     db: 'stronghold'
-  }]
-});
-use analysis;
-db.createUser({
- user:  '$SERVER_USERNAME',
-  pwd: '$SERVER_PASSWORD',
-  roles: [{
+  }, {
     role: 'readWrite',
     db: 'analysis'
   }]

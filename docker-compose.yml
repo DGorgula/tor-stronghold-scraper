@@ -3,8 +3,6 @@ services:
   torproxy:
     container_name: torproxy
     image: "dperson/torproxy"
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
     networks: 
         - tor
   scraper:
@@ -14,16 +12,14 @@ services:
         context: ./scraper
         dockerfile: ./Dockerfile
     entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 30 -- node index.js"
-    links:
-        - mongo
     environment: 
         SCRAPER_USERNAME: theuser 
         SCRAPER_PASSWORD: thepassword
-        # MONGO_INITDB_DATABASE: stronghold
     networks: 
         - db
         - tor
   mongo-express:
+    # TODO: change configuration for restricted access
     container_name: mongo-express
     image: mongo-express
     restart: always
@@ -49,6 +45,21 @@ services:
         SCRAPER_PASSWORD: thepassword
         SERVER_USERNAME: theserver
         SERVER_PASSWORD: theserverpassword
+#   mongo-rs:
+#     container_name: mongo-rs
+#     image: mongo:latest
+#     networks:
+#         - db
+#         - serverdb
+#     restart: always
+#     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+#     environment: 
+#         MONGO_INITDB_ROOT_USERNAME: iamtheone
+#         MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
+#         SCRAPER_USERNAME: theuser 
+#         SCRAPER_PASSWORD: thepassword
+#         SERVER_USERNAME: theserver
+#         SERVER_PASSWORD: theserverpassword
   server:
     container_name: server
     build:
@@ -63,9 +74,23 @@ services:
         SERVER_PASSWORD: theserverpassword
     networks:
         - db
-        
+        - client
+  client:
+    container_name: client
+    build:
+        context: ./client
+        dockerfile: ./Dockerfile
+    restart: always
+    ports:
+        - 8000:80
+    networks:
+        - client
 networks: 
     db:
         driver: bridge
     tor:
+        driver: bridge
+    # serverdb:
+    #     driver: bridge
+    client:
         driver: bridge

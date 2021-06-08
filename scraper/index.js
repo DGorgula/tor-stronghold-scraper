@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const tr = require('tor-request');
-const { Paste, mongoose } = require('./mongo');
+const { Paste } = require('./mongo');
 tr.setTorAddress("torproxy");
 
 
@@ -83,12 +83,12 @@ function getLinksData(pageLinks, dateOfLastPasteInDb) {
                 }
                 const pastePage = cheerio.load(body);
                 const rawSignature = pastePage('.pre-footer > .row > :not(.text-right)').text().trim();
-                const timestamp = new Date(rawSignature.slice(-25, -4).replace(',', ''));
-                if (timestamp <= dateOfLastPasteInDb) return resolve(pageData);
+                const date = new Date(rawSignature.slice(-25, -4).replace(',', ''));
+                if (date <= dateOfLastPasteInDb) return resolve(pageData);
                 const title = pastePage('.col-sm-5 > h4').text().trim()
                 const content = pastePage('ol > li').text().trim();
-                const publisher = rawSignature.slice(10, -29);
-                pageData.push(new Paste({ title, content, createdAt: timestamp, createdBy: publisher }));
+                const author = rawSignature.slice(10, -29);
+                pageData.push(new Paste({ title, content, date, author }));
 
                 if (pageData.length === numberOfLinks) return resolve(pageData);
             });

@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 const { SCRAPER_USERNAME, SCRAPER_PASSWORD } = process.env;
-console.log("SCRAPER: ", SCRAPER_USERNAME, SCRAPER_PASSWORD);
 
-mongoose.connect('mongodb://theuser:thepassword@mongo:27017/stronghold', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongoose.connect(`mongodb://${SCRAPER_USERNAME}:${SCRAPER_PASSWORD}@mongo:27017/stronghold`, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) throw err;
     console.log("connected to mongodb");
 });

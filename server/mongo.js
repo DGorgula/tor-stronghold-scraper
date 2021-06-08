@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 const { SERVER_USERNAME, SERVER_PASSWORD } = process.env;
-console.log("SERVER: ", SERVER_USERNAME, SERVER_PASSWORD);
-mongoose.connect('mongodb://theserver:theserverpassword@mongo:27017/stronghold', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongoose.connect(`mongodb://${SERVER_USERNAME}:${SERVER_PASSWORD}@mongo:27017/stronghold`, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) throw err;
     console.log("connected to mongodb");
 });
