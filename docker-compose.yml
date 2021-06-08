@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  torproxy:
+    container_name: torproxy
+    image: "dperson/torproxy"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    networks: 
+        - tor
+  scrapper:
+    restart: always
+    container_name: scraper
+    build:
+        context: ./scraper
+        dockerfile: ./Dockerfile
+    entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 30 -- node index.js"
+    links:
+        - mongo
+    networks: 
+        - db
+        - tor
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    networks:
+        - db
+    restart: always
+networks: 
+    db:
+        driver: bridge
+    tor:
+        driver: bridge
