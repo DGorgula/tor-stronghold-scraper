@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
-mongoose.connect('mongodb://mongo:27017', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongoose.connect('mongodb://theuser:thepassword@mongo:27017/stronghold', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) throw err;
     console.log("connected to mongodb");
 });

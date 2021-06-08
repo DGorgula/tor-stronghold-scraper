@@ -86,7 +86,7 @@ function getLinksData(pageLinks, dateOfLastPasteInDb) {
                 const timestamp = new Date(rawSignature.slice(-25, -4).replace(',', ''));
                 if (timestamp <= dateOfLastPasteInDb) return resolve(pageData);
                 const title = pastePage('.col-sm-5 > h4').text().trim()
-                const content = pastePage('ol > li').text().trim()
+                const content = pastePage('ol > li').text().trim();
                 const publisher = rawSignature.slice(10, -29);
                 pageData.push(new Paste({ title, content, createdAt: timestamp, createdBy: publisher }));
 

@@ -7,7 +7,7 @@ services:
     tty: true        # docker run -t
     networks: 
         - tor
-  scrapper:
+  scraper:
     restart: always
     container_name: scraper
     build:
@@ -16,16 +16,48 @@ services:
     entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 30 -- node index.js"
     links:
         - mongo
+    environment: 
+        MONGO_INITDB_ROOT_USERNAME: iamtheone
+        MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
+        MONGO_INITDB_USERNAME: theuser
+        MONGO_INITDB_PASSWORD: thepassword
+        # MONGO_INITDB_DATABASE: stronghold
     networks: 
         - db
         - tor
-
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+        - 8081:8081
+    networks:
+        - db
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: iamtheone
+        ME_CONFIG_MONGODB_ADMINPASSWORD: iampasswordfortheone
   mongo:
     container_name: mongo
-    image: mongo
+    build: 
+        context: ./mongo
+        dockerfile: ./Dockerfile
     networks:
         - db
     restart: always
+    environment: 
+        MONGO_INITDB_ROOT_USERNAME: iamtheone
+        MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
+        SCRAPER_USERNAME: theuser 
+        SCRAPER_PASSWORD: thepassword
+        SERVER_USERNAME: theserver
+        SERVER_PASSWORD: theserverpassword
+  server:
+    container_name: server
+    build:
+        context: ./server
+        dockerfile: ./Dockerfile
+
+        
 networks: 
     db:
         driver: bridge
