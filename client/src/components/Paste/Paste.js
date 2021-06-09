@@ -1,11 +1,16 @@
 import './Paste.css'
-import { Box, Container, Paper } from '@material-ui/core'
-
-
+import { Box, Container, makeStyles, Paper, ThemeProvider, useTheme } from '@material-ui/core'
+const useStyles = makeStyles((theme) => ({
+    Paper: {
+        backgroundColor: '#fcbf49'
+    }
+}));
 function Paste({ paste }) {
     const { title, content, author, date } = paste
+    const classes = useStyles();
     return (
-        <Paper className="paste" >
+
+        <Paper className={`paste ${classes.Paper}`} color="secondary" >
 
             <Box className="paste-title paste-item">{title || "title"}</Box>
             <Box className="paste-data paste-item">

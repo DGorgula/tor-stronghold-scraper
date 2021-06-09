@@ -5,14 +5,14 @@ $color4: #d62828;
 $color5: #003049;
 
 .paste{
-    background-color: $color2;
+    background-color: $color2; 
     $marginLeft: 2em;
     max-width: 85vw;
     margin: 0 auto;
     margin-bottom: 0.5em;
     display: flex;
     flex-direction: column;
-    color:$color5;
+    // // color:$color5;
 
     .paste-item{
         width: fit-content;
@@ -22,7 +22,7 @@ $color5: #003049;
         margin-left: $marginLeft;
         margin-top: 0.5em;
         font-weight: bolder;
-        color:$color5;
+        // // color:$color5;
     }
     .paste-content{
         max-width: 95%;
@@ -38,7 +38,7 @@ $color5: #003049;
         opacity: 0.6;
         display: flex;
         margin-left: $marginLeft;
-        color: inherit;
+        // color: inherit;
     }
     .paste-date{
         margin-left: $marginLeft;
