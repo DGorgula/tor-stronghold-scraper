@@ -15,4 +15,3 @@ const pasteSchema = new Schema({
 
 
 module.exports.Paste = new mongoose.model('Paste', pasteSchema);
-module.exports.mongoose = mongoose
