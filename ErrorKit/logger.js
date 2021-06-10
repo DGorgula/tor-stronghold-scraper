@@ -19,23 +19,3 @@ function logger(incomingError) {
     // console.log(incomingError);
 
 }
-
-
-try {
-    throw new ServerError("first")
-}
-catch (err) {
-    console.log("first check", err.__proto__ instanceof Error);
-    console.log("first check", typeof err);
-    logger(err)
-}
-
-try {
-    throw new EvalError("second")
-}
-catch (err) {
-    console.log("second check", err.__proto__ instanceof Error);
-    console.log("second check", typeof err);
-    logger(err)
-}
-logger("third")

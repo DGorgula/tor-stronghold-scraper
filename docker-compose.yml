@@ -67,14 +67,13 @@ services:
         dockerfile: ./Dockerfile
     restart: always
     ports:
-        - 3005:3005
+         - 3005:3005
     environment: 
         PORT: 3005
         SERVER_USERNAME: theserver
         SERVER_PASSWORD: theserverpassword
     networks:
         - db
-        - client
   client:
     container_name: client
     build:
@@ -83,8 +82,6 @@ services:
     restart: always
     ports:
         - 8000:80
-    networks:
-        - client
 networks: 
     db:
         driver: bridge
@@ -92,5 +89,3 @@ networks:
         driver: bridge
     # serverdb:
     #     driver: bridge
-    client:
-        driver: bridge

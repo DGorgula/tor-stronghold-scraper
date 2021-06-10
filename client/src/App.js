@@ -8,7 +8,7 @@ import { AppBar, Button, Container, createMuiTheme, Paper, Tab, Tabs, ThemeProvi
 function App() {
   const [pastes, setPastes] = useState();
   useEffect(() => {
-    axios.get('/all')
+    axios.get('http://localhost:3005/all')
       .then(({ data }) => {
         console.log(data);
         setPastes(data)
