@@ -1,4 +1,4 @@
-const { getAllPastes } = require('./mongo/util');
+const { getData } = require('./mongo/util');
 const express = require('express')
 const app = express();
 
@@ -12,8 +12,9 @@ app.use(cors())
 app.get('/all', async (req, res, next) => {
     console.log("in /all route!");
     try {
-        const allPastes = await getAllPastes();
-        res.json(allPastes);
+        const allData = await getData();
+
+        res.json(allData);
         return
     }
     catch (err) {

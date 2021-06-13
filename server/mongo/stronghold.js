@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const pasteSchema = require('./schemas/pasteSchema');
 const dataSchema = require('./schemas/dataSchema');
+const { generalSchema } = require('./schemas/generalDataSchema');
 const { SERVER_USERNAME, SERVER_PASSWORD } = process.env;
 
 const stronghold = mongoose.createConnection(`mongodb://${SERVER_USERNAME}:${SERVER_PASSWORD}@mongo:27017/stronghold`, { useNewUrlParser: true, useUnifiedTopology: true }, (err, conn) => {
@@ -21,6 +22,7 @@ const stronghold = mongoose.createConnection(`mongodb://${SERVER_USERNAME}:${SER
 
 // const PasteData = analysis.model('PasteData', dataSchema);
 
+module.exports.GeneralData = stronghold.model('GeneralData', generalSchema);;
 module.exports.Paste = stronghold.model('Paste', pasteSchema);
 module.exports.PasteData = stronghold.model('PasteData', dataSchema);;
 

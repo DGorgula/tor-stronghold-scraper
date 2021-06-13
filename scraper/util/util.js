@@ -1,17 +1,24 @@
-const { Paste } = require('../mongo');
+const { Paste, PasteData, GeneralData } = require('./mongoConnection');
 const cheerio = require('cheerio');
 const tr = require('tor-request');
+const { createPastes } = require('./mongoFunctions');
 tr.setTorAddress("torproxy");
 
+
+// TODO: move createFirstPastes to index.js
 //  scrapes and creates first scrape in db
-function createFirstPastes() {
-    console.log("getting first data");
-    getData().then(data => {
-        console.log("thats what i got: ", data);
+async function createFirstPastes() {
+    try {
+
+        console.log("getting first data");
+        const data = await scrapeData();
         if (!data) return;
-        createPastes(data)
-        console.log("pushed first data to db successfully");
-    }).catch(console.log)
+        const dataEntered = await createPastes(data)
+        return dataEntered;
+    }
+    catch (err) {
+        console.log("error createFirestPastes: ", err);
+    }
 }
 
 // delay in 20 seconds, returns a promise
@@ -22,11 +29,11 @@ function delay() {
 }
 
 // gets the data from all pastes in all pages. returns a promise.
-function getData(dateOfLastPasteInDb) {
+function scrapeData(dateOfLastPasteInDb) {
     return new Promise((resolve, reject) => {
         tr.request('http://nzxj65x32vh2fkhk.onion/all', async function (err, res, body) {
             if (err || res.statusCode !== 200) {
-                return console.log("something went wrong: ", err);
+                return reject("something went wrong with first page: ", err);
             }
             const mainPage = cheerio.load(body);
             const numberOfPages = mainPage('.pagination > li').get().slice(1, -1).length;
@@ -35,7 +42,7 @@ function getData(dateOfLastPasteInDb) {
             for (let page = 1; page <= numberOfPages; page++) {
                 await tr.request(`http://nzxj65x32vh2fkhk.onion/all?page=${page}`, async function (err, res, body) {
                     if (err || res.statusCode !== 200) {
-                        return console.log("something went wrong: ", err);
+                        return reject("something went wrong with page: ", err);
                     }
                     const pageHtml = cheerio.load(body);
                     const buttons = pageHtml('.btn').get();
@@ -54,7 +61,7 @@ function getData(dateOfLastPasteInDb) {
                     }
                     respondsCount++
                     if (respondsCount === numberOfPages) {
-                        allData.sort((a, b) => a.createdAt - b.createdAt)
+                        allData.sort((a, b) => a.date - b.date)
                         resolve(allData);
                     }
                 })
@@ -62,25 +69,9 @@ function getData(dateOfLastPasteInDb) {
         });
     });
 }
-//  get the last paste's date, if no pastes returns "false"
-async function getDateOfLastPaste(params) {
-    const lastPaste = await Paste.find({}, 'date').sort({ "date": -1 }).limit(1)
-    if (!lastPaste[0]) {
-        return false
-    }
-    return lastPaste[0].date;
-}
 
-//  creates one or more new pastes in db.
-async function createPastes(data) {
-    try {
-        await Paste.create(data)
-        console.log("paste(s) added: ", data);
-    }
-    catch (err) {
-        console.log("error in createPastes? :", err);
-    }
-}
+
+
 
 // makes requests to all given links and pulls the pastes data. returns a promise.
 function getLinksData(pageLinks, dateOfLastPasteInDb) {
@@ -90,16 +81,20 @@ function getLinksData(pageLinks, dateOfLastPasteInDb) {
         pageLinks.forEach((link, i) => {
             tr.request(link, function (err, res, body) {
                 if (err || res.statusCode !== 200) {
-                    return console.log("something went wrong: ", err);
+                    return reject("something went wrong with the link: ", err);
                 }
                 const pastePage = cheerio.load(body);
                 const rawSignature = pastePage('.pre-footer > .row > :not(.text-right)').text().trim();
+                const rawViews = pastePage('.pre-footer > .row > .text-right').text().trim();
+                const regexedRawViews = /\D+(\d+)/g.exec(rawViews);
+                const views = regexedRawViews[1];
                 const date = new Date(rawSignature.slice(-25, -4).replace(',', ''));
                 if (date <= dateOfLastPasteInDb || 0) return resolve(pageData);
                 const title = pastePage('.col-sm-5 > h4').text().trim()
                 const content = pastePage('ol > li').text().trim();
                 const author = rawSignature.slice(10, -29);
-                pageData.push(new Paste({ title, content, date, author }));
+                const newPaste = new Paste({ title, content, date, author, views })
+                pageData.push(newPaste);
                 if (pageData.length === numberOfLinks) return resolve(pageData);
             });
 
@@ -107,4 +102,6 @@ function getLinksData(pageLinks, dateOfLastPasteInDb) {
     })
 }
 
-module.exports = { delay, getData, getDateOfLastPaste, createPastes, createFirstPastes }
+module.exports.delay = delay
+module.exports.scrapeData = scrapeData
+module.exports.createFirstPastes = createFirstPastes

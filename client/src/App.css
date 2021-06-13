@@ -2,8 +2,7 @@
   height: 100%;
   min-height: 100vh;
   margin: 0;
-  padding-top: 5rem;
-  padding-bottom: 0.5em;
+  padding-top: 4.73rem;
   text-align: center;
   background-color: #eae2b7;
 }
@@ -18,14 +17,39 @@
 }
 
 #App #analysis-div #analysis {
-  width: 90%;
-  height: 60vh;
+  width: 10rem;
+  height: 10rem;
   margin: 0 auto;
   background-color: rgba(252, 191, 73, 0.6);
+  position: relative;
+}
+
+#App #analysis-div #analysis {
+  height: 60vh;
+  width: 90%;
+}
+
+#App #analysis-div #analysis #analysis-starting-date {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: smaller;
+}
+
+#App #analysis-div .loader {
+  position: absolute;
+  top: 50rem;
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+  background-color: rgba(252, 191, 73, 0.6);
+  margin: auto;
+  position: relative;
 }
 
 #App #pastes-div {
   padding-top: 2rem;
+  magin-bottom: 0.5em;
 }
 
 #App #whale {

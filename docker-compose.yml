@@ -11,13 +11,16 @@ services:
     build:
         context: ./scraper
         dockerfile: ./Dockerfile
-    entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 30 -- node index.js"
+    entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 15 -- node index.js"
     environment: 
         SCRAPER_USERNAME: theuser 
         SCRAPER_PASSWORD: thepassword
     networks: 
         - db
         - tor
+    # volumes:
+    #     - /:/scraper
+    #     - node_modules:/scraper/node_modules
   mongo-express:
     # TODO: change configuration for restricted access
     container_name: mongo-express
@@ -89,3 +92,5 @@ networks:
         driver: bridge
     # serverdb:
     #     driver: bridge
+# volumes: 
+#     node_modules:

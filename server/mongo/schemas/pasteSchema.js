@@ -4,5 +4,9 @@ module.exports.pasteSchema = new Schema({
     title: String,
     content: Array,
     date: Date,
-    author: String
+    author: String,
+    views: Number,
+    labels: {
+        type: Array,
+    }
 });

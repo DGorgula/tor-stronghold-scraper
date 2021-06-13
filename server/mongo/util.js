@@ -1,13 +1,14 @@
-const { Paste } = require('../mongo/stronghold');
+const { Paste, PasteData, GeneralData } = require('../mongo/stronghold');
 
 
 
-module.exports.getAllPastes = async function getAllPastes(labels) {
+module.exports.getData = async function getData() {
     try {
-        const data = await Paste.find().sort({ 'createdAt': -1 })
-        // const dataAnalysis = await PasteData.find({ labels })
+        const pastes = await Paste.find().sort({ 'date': -1 })
+        const dataAnalysis = await PasteData.find({});
+        const [generalData] = await GeneralData.find({});
         // console.log("dataAnalysis: ", dataAnalysis);
-        return data;
+        return { pastes, dataAnalysis: { generalData, pastesData: dataAnalysis } };
     } catch (err) {
         console.log(err);
     }

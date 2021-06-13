@@ -1,11 +1,11 @@
 const NLPCloudClient = require('nlpcloud');
-const { delay } = require('../util/util');
+const delayParent = require('../util/util');
 const { NLP_CLOUD_TOKEN } = process.env;
 
 const clientForEntities = new NLPCloudClient('en_core_web_lg', 'c4987ec167087c9a1f93002e982022dcfb699d31')
 const clientForClassification = new NLPCloudClient('bart-large-mnli', 'c4987ec167087c9a1f93002e982022dcfb699d31')
 
-async function getAnalytics(content, labels, delay) {
+async function getAnalytics(content, labels) {
     const analytics = {
         entities: null,
         classifications: null
@@ -13,9 +13,8 @@ async function getAnalytics(content, labels, delay) {
     try {
         const entities = await clientForEntities.entities(content)
         analytics.entities = entities.data.entities
-        console.log("after entities");
         if (!labels) throw new Error("could not get entities: Did not get any labels")
-        await delay()
+        await delayParent.delay()
         const classifications = await clientForClassification.classification(content,
             labels,
             labels.length > 1 ? true : false)
@@ -31,4 +30,4 @@ async function getAnalytics(content, labels, delay) {
     return analytics
 }
 
-module.exports.getAnalytics = getAnalytics;
+module.exports.getAnalytics = getAnalytics

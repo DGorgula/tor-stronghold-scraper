@@ -1,6 +1,11 @@
 const { Schema } = require('mongoose');
+const { scoredLabelsSchema } = require('./scoredLabelsSchema');
 module.exports.dataSchema = new Schema({
-    pasteId: String,
+    pasteId: Schema.Types.ObjectId,
     entities: Array,
-    createdAt: Date,
+    labels: [scoredLabelsSchema],
+    date: {
+        type: Date,
+        default: new Date()
+    }
 });
