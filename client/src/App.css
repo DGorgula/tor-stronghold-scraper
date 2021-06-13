@@ -27,6 +27,7 @@
 #App #analysis-div #analysis {
   height: 60vh;
   width: 90%;
+  position: relative;
 }
 
 #App #analysis-div #analysis #analysis-starting-date {
@@ -34,6 +35,13 @@
   bottom: 1rem;
   right: 1rem;
   font-size: smaller;
+}
+
+#App #analysis-div #analysis #label-average-pie {
+  position: absolute;
+  bottom: 0;
+  width: 10rem;
+  height: 10rem;
 }
 
 #App #analysis-div .loader {

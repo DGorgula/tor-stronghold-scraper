@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 import Paste from './components/Paste/Paste';
 import Navbar from './components/Navbar/Navbar';
-
+import LinearWithValueLabel from './components/LinearProgressWithLabel/LinearProgressWithLabel'
 import {
   Chart,
   PieSeries,
@@ -57,25 +57,28 @@ function App() {
           {pastes?.length ?
             <Paper id="analysis" elevation={3} >
               <h2 id="title">Statistics</h2>
-              <p>Total Parses: {pastes?.length}</p>
-              <p>Total Parses Analyzied: {analytics?.generalData.analysisCount}</p>
+              {console.log(analytics?.generalData.analysisCount)}
+              {/*  */}
+              <LinearWithValueLabel value={(analytics?.generalData.analysisCount / pastes?.length) * 100} />
               <p>labels:{analytics?.labels}</p>
               <p id="analysis-starting-date">gathering data from: {analytics ? prettyDate(analytics?.generalData?.analysisStartingDate) : null}</p>
-              {/* <Paper>
+              {analytics?.pastesData[0]?.labels &&
                 <Chart
-                  data={analytics?.pastesData[0].labels}
+                  id="label-average-pie"
+                  data={analytics?.generalData?.labelAverage}
                 >
                   <PieSeries
-                    valueField="val"
-                    argumentField="region"
-                    innerRadius={0.6}
-                  />
-                  <Title
-                    text="The Population of Continents and Regions"
+
+                    name="labels"
+                    valueField="score"
+                    argumentField="label"
+                    innerRadius={0.5}
+                    outerRadius={1}
                   />
                   <Animation />
+                  <Title text="label" position="bottom" />
                 </Chart>
-              </Paper> */}
+              }
             </Paper>
             :
             <div className="loader" >
