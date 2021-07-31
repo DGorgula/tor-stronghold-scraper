@@ -1,4 +1,5 @@
-import React from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,8 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { Box, Tab, Tabs } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import './Navbar.css'
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -81,12 +81,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
+    const history = useHistory();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    const [currentState, setCurrentState] = React.useState('allPastes');
+    const currentRef = useRef('allPastes');
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    useEffect(() => {
+        console.log("yyyyyeeeaaa", history.location.pathname);
+        currentRef.current = history.location.pathname;
+    }, [history])
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -165,13 +172,14 @@ export default function Navbar() {
     );
 
     return (
-        <div id="navbar" className="{classes.grow}">
-            <AppBar color="secondary">
+        // <div id="navbar" className="{classes.grow}">
+        <>
+            <AppBar className={`navbar`} color="secondary">
                 <Toolbar>
 
-                    <Typography className={classes.title} variant="h6" color="primary" noWrap>
+                    <Typography className={classes.title} variant="h4" color="primary" noWrap>
                         Tor Stronghold Scraper
-          </Typography>
+                    </Typography>
                     <div className={classes.grow} />
                     {/* <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -190,8 +198,16 @@ export default function Navbar() {
 
                     <div className={"right " + classes.sectionDesktop}>
                         <div id="nav-buttons">
-                            <Box className="nav-button current">all Pastes</Box>
-                            <Box className="nav-button" >Stats</Box>
+                            <Box className={`nav-button ${currentState === 'allPastes' && 'current'}`} onClick={() => {
+                                setCurrentState('allPastes');
+                                history.push('/')
+                            }
+                            } >all Pastes</Box>
+                            <Box className={`nav-button ${currentState === 'stats' && 'current'}`} onClick={() => {
+                                setCurrentState('stats');
+                                history.push('/stats')
+                            }
+                            } >Stats</Box>
                         </div>
                         {/* <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -230,6 +246,7 @@ export default function Navbar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-        </div>
+        </>
+        // </div>
     );
 }

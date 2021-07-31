@@ -1,0 +1,10 @@
+#classification-chart {
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+#classification-chart:hover {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+/*# sourceMappingURL=EntitiesChart.css.map */

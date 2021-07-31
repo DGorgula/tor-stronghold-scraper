@@ -1,7 +1,7 @@
+require('dotenv').config();
 const { getData } = require('./mongo/util');
 const express = require('express')
 const app = express();
-
 // const { General } = require('./mongo/analysis');
 const cors = require('cors');
 const port = process.env.PORT || 3005;

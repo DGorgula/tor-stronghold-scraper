@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,qBAAqB,CAAA;EAClB,SAAS,EAAE,UAAU;CAKvB;;AAND,AAEG,qBAFkB,AAEjB,MAAM,CAAA;EACH,SAAS,EAAE,UAAU;CAExB",
+    "sources": [
+        "EntitiesChart.scss"
+    ],
+    "names": [],
+    "file": "EntitiesChart.css"
+}

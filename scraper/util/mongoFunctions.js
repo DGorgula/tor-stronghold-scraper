@@ -58,7 +58,6 @@ async function updateGeneralData(paste) {
                 const newEntity = new Entity(entityAsEntitySchema);
                 newEntities.push(newEntity)
             }
-
         });
         dataToUpdate.allEntities.push(...newEntities);
     }
@@ -77,14 +76,21 @@ async function updateGeneralData(paste) {
 
     paste.labels.forEach((label, i) => {
         if (!pasteData) return
-        const lowestLabelScoreObject = dataToUpdate.lowestLabelScores.find((q => q.label === label))
+        const lowestLabelScoreObject = dataToUpdate.lowestLabelScores.find((q => {
+            return q.label === label
+        }))
         if (lowestLabelScoreObject) {
+            console.log("1 in if");
+
             const pasteScoreisLower = pasteData.labels[i].score < lowestLabelScoreObject.score;
             if (pasteScoreisLower) {
+                console.log("2 ");
                 lowestLabelScoreObject.score = pasteData.labels[i].score;
             }
+            console.log("3 ", pasteScoreisLower);
         }
         else {
+            console.log("4 ");
             dataToUpdate.lowestLabelScores.push({ score: pasteData.labels[i].score, label: pasteData.labels[i].label, type: 'lowest' })
         }
         const highestLabelScoreObject = dataToUpdate.highestLabelScores.find((q => q.label === label))

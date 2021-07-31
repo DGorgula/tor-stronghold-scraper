@@ -9,6 +9,7 @@ module.exports.generalSchema = new Schema({
         default: 0
     },
     allEntities: [entitySchema],
+    // entitiesSum: entitySum,
     highestLabelScores: [scoredLabelsSchema],
     lowestLabelScores: [scoredLabelsSchema],
     labelAverage: [scoredLabelsSchema],

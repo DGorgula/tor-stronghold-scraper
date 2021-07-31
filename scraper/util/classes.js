@@ -19,18 +19,18 @@ class IntervalController {
                 return console.log("no pastes yet");
             }
             const paste = this.pastes[0]
+            const labels = await getCurrentLabels();
             console.log("analysis starting...");
             if (this.firstCallback) {
                 await updateGeneralData(paste);
                 this.firstCallback = false;
             }
             else {
-                const labels = await getCurrentLabels();
                 paste.labels = labels;
                 paste.save();
             }
             // console.log(paste);
-            const analytics = await getAnalytics(paste.title + paste.content[0], paste.labels);
+            const analytics = await getAnalytics(paste.title + paste.content[0], paste.labels || labels);
 
             await createPasteData(paste, analytics);
             updateGeneralData(paste);

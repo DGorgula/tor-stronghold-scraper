@@ -1,0 +1,19 @@
+#table {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.table-header {
+  background-color: brown;
+  color: #eae2b7;
+}
+
+.table-row {
+  background-color: rgba(252, 191, 73, 0.6);
+  cursor: pointer;
+}
+
+.table-row:hover {
+  background-color: rgba(0, 48, 73, 0.6);
+}
+/*# sourceMappingURL=StickyHeadTable.css.map */

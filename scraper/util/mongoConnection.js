@@ -11,8 +11,8 @@ mongoose.connect(`mongodb://${SCRAPER_USERNAME}:${SCRAPER_PASSWORD}@mongo:27017/
     console.log("connected to mongodb");
 });
 
-module.exports.PasteData = new mongoose.model('PasteData', dataSchema);;
-module.exports.GeneralData = new mongoose.model('GeneralData', generalSchema);;
+module.exports.PasteData = new mongoose.model('PasteData', dataSchema);
+module.exports.GeneralData = new mongoose.model('GeneralData', generalSchema);
 module.exports.Paste = new mongoose.model('Paste', pasteSchema);
 module.exports.Label = new mongoose.model('Label', scoredLabelsSchema);
 module.exports.Entity = new mongoose.model('Entity', entitySchema);

@@ -38,6 +38,8 @@ services:
     build: 
         context: ./mongo
         dockerfile: ./Dockerfile
+    ports:
+        - 27017:27017
     networks:
         - db
     restart: always

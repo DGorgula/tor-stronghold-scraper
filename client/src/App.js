@@ -1,32 +1,39 @@
+// import libraries
 import { useEffect, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom'
 import axios from 'axios';
-import './App.css';
-import Paste from './components/Paste/Paste';
+// import components
 import Navbar from './components/Navbar/Navbar';
-import LinearWithValueLabel from './components/LinearProgressWithLabel/LinearProgressWithLabel'
-import {
-  Chart,
-  PieSeries,
-  Title,
-} from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart';
+import EntitiesChart from './components/EntitiesChart/EntitiesChart'
+import Home from './components/Home/Home'
+import Stats from './components/Stats/Stats'
+// import css
+import './App.css';
 
-import { AppBar, Button, Container, createMuiTheme, Paper, Tab, ThemeProvider } from '@material-ui/core';
-import Spinner from './components/Spinner/Spinner';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
-function App() {
+function App(props) {
+  // const history = useHistory();
+
   const [pastes, setPastes] = useState();
   const [analytics, setAnalytics] = useState();
   useEffect(() => {
     axios.get('http://localhost:3005/all')
       .then(({ data }) => {
         console.log(data);
-        setPastes(data.pastes)
+        const pastes = data.pastes.map(p => {
+          p.rawDate = p.date;
+          p.date = new Date(`${p.date}`).toLocaleString();
+          console.log(p);
+          return p;
+        })
+        setPastes(pastes)
         setAnalytics(data.dataAnalysis)
       })
       .catch(console.log)
   }, [])
-
+  console.log(props);
+  // if (path) return props.history.push(path);
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -43,55 +50,24 @@ function App() {
     }
   });
 
-  function prettyDate(date) {
-    return new Date(date).toLocaleString().replace(',', '').slice(0, -6)
-  }
-
   return (
     <ThemeProvider theme={theme} >
       <div id="App">
         <Navbar />
-        {/* <AppBar position="static" color="secondary" className="navbar">{pastes?.length}<Tabs><Tab>all Pastes</Tab><Tab>Stats</Tab></Tabs></AppBar> */}
-        {/* <img id="whale" src="/whaleScraper.png" /> */}
-        <div id="analysis-div">
-          {pastes?.length ?
-            <Paper id="analysis" elevation={3} >
-              <h2 id="title">Statistics</h2>
-              {console.log(analytics?.generalData.analysisCount)}
-              {/*  */}
-              <LinearWithValueLabel value={(analytics?.generalData.analysisCount / pastes?.length) * 100} />
-              <p>labels:{analytics?.labels}</p>
-              <p id="analysis-starting-date">gathering data from: {analytics ? prettyDate(analytics?.generalData?.analysisStartingDate) : null}</p>
-              {analytics?.pastesData[0]?.labels &&
-                <Chart
-                  id="label-average-pie"
-                  data={analytics?.generalData?.labelAverage}
-                >
-                  <PieSeries
+        <Switch>
+          <Route exact path="/">
+            <Home pastes={pastes} setPastes={setPastes} analytics={analytics || null} setAnalytics={setAnalytics} />
+          </Route>
+          <Route exact path="/stats" >
+            <Stats rawData={analytics?.generalData?.allEntities} />
+          </Route>
+          <Route path='*'>
+            <Redirect to='/' />
+          </Route>
+        </Switch>
 
-                    name="labels"
-                    valueField="score"
-                    argumentField="label"
-                    innerRadius={0.5}
-                    outerRadius={1}
-                  />
-                  <Animation />
-                  <Title text="label" position="bottom" />
-                </Chart>
-              }
-            </Paper>
-            :
-            <div className="loader" >
-              <Spinner />
-
-            </div>
-          }
-        </div>
-        {pastes?.length ?
-          <div id="pastes-div">
-            {(pastes && pastes?.map((paste, i) => <Paste key={i} paste={paste} />)) || "Not working yet"}
-          </div> : null}
       </div>
+
     </ThemeProvider >
   );
 }

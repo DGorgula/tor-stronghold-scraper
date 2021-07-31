@@ -18,6 +18,8 @@ async function getAnalytics(content, labels) {
         const classifications = await clientForClassification.classification(content,
             labels,
             labels.length > 1 ? true : false)
+
+        console.log("SADGASFDASASDGFASDGFASD", classifications.labels)
         // console.log(classifications.data);
         analytics.classifications = classifications.data
         // TODO: fix regex and create validation
