@@ -1,10 +1,10 @@
-#classification-chart {
+.MuiPaper-root {
   -webkit-transform: scale(0.6);
           transform: scale(0.6);
 }
 
-#classification-chart:hover {
+.MuiPaper-root:hover {
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
 }
-/*# sourceMappingURL=EntitiesChart.css.map */
+/*# sourceMappingURL=LabelsChart.css.map */

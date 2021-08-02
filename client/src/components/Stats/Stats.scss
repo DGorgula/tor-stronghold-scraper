@@ -1,0 +1,71 @@
+.stats-wrapper{
+position: relative;
+    display: flex;
+    .stats{
+        margin: 0.3rem 2rem 1rem 2rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        .chart-container{
+            display: flex;
+            flex-direction: column-reverse;
+            tbody{
+                display: flex;
+                font-size: smaller;
+                margin-left: 2rem;
+                tr{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    height: 2.5rem;
+                margin: 0.2rem;
+                }
+            }
+        }
+        & > div{
+            margin-bottom: 1rem;
+            display: flex;
+        }
+    }
+    .chosen-stats{
+        position: fixed;
+        background-color: rgba($color: white, $alpha: 0.9);
+        padding: 1rem;
+        padding-left: 1.5rem;
+        top: 6.5rem;
+        left: -0.5rem;
+        z-index: 1;
+        
+    }
+
+    .chart-container{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        tbody{
+            background-color: rgba($color: rgb(247, 247, 247), $alpha: 0.9);
+            margin-top: 0.2rem;
+            border-radius: 5px;
+            box-shadow: 2px 2px 7px -5px black;
+            padding: 0.1rem 0.5rem;
+            color: #003049;
+            font-size: smaller;
+            width: fit-content;
+            display: flex;
+            margin-right: 1rem;
+            &.empty{
+                background-color: unset;
+                box-shadow: unset;
+            }
+            tr{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                height: 2.5rem;
+                margin: 0.2rem;
+            }
+        }
+    }
+}

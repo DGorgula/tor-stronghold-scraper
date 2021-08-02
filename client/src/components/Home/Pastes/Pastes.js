@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import Paste from '../../Paste/Paste';
-import StickyHeadTable from '../../StickyHeadTable/StickyHeadTable'
+import React from 'react'
+import StickyHeadTable from '../DashBoard/StickyHeadTable/StickyHeadTable'
 
 
 
@@ -9,7 +8,6 @@ function Pastes({ pastes }) {
         <div>
             {pastes?.length
                 ? <div id="pastes-div">
-                    {/* {pastes?.map((paste, i) => <Paste key={i} paste={paste} />)} */}
                     {(pastes && <StickyHeadTable data={pastes} titles={["Author", "Title", "Content", "Views", "Date"]} />) || "Not working yet"}
                 </div>
                 : null}

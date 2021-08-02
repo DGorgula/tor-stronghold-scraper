@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACX,SAAS,EAAE,UAAU;CAKvB;;AAND,AAEG,cAFW,AAEV,MAAM,CAAA;EACH,SAAS,EAAE,UAAU;CAExB",
+    "sources": [
+        "LabelsChart.scss"
+    ],
+    "names": [],
+    "file": "LabelsChart.css"
+}

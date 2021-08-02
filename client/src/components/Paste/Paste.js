@@ -1,5 +1,5 @@
 import './Paste.css'
-import { Box, Container, makeStyles, Paper, ThemeProvider, useTheme } from '@material-ui/core'
+import { Box, makeStyles, Paper } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
     Paper: {
         backgroundColor: '#fcbf49'

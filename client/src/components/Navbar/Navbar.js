@@ -1,16 +1,14 @@
-import { useHistory, Redirect } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -85,16 +83,14 @@ export default function Navbar() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [currentState, setCurrentState] = React.useState('allPastes');
-    const currentRef = useRef('allPastes');
+    const [currentState, setCurrentState] = React.useState(getCurrentLocation());
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    useEffect(() => {
-        console.log("yyyyyeeeaaa", history.location.pathname);
-        currentRef.current = history.location.pathname;
-    }, [history])
+    function getCurrentLocation() {
+        return history.location.pathname === '/' ? 'allPastes' : history.location.pathname === '/stats' ? 'stats' : 'allPastes'
 
+    }
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
