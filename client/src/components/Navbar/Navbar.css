@@ -1,0 +1,46 @@
+.navbar {
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #fcbf49;
+  z-index: 10;
+  height: 4rem;
+}
+
+.navbar .right {
+  height: 100%;
+}
+
+.navbar #nav-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  color: #fcbf49;
+}
+
+.navbar #nav-buttons .nav-button {
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  color: #fcbf49;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: unset;
+  cursor: pointer;
+}
+
+.navbar #nav-buttons .nav-button:not(.current):hover {
+  background-color: rgba(252, 191, 73, 0.85);
+  color: #003049;
+}
+
+.navbar #nav-buttons .current {
+  background-color: #fcbf49;
+  color: #003049;
+}
+/*# sourceMappingURL=Navbar.css.map */

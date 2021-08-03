@@ -1,0 +1,123 @@
+.stats-wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.stats-wrapper .stats {
+  margin: 0.3rem 2rem 1rem 2rem;
+  padding: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.stats-wrapper .stats .chart-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+.stats-wrapper .stats .chart-container table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: smaller;
+  margin-left: 2rem;
+}
+
+.stats-wrapper .stats .chart-container table tr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 2.5rem;
+  margin: 0.2rem;
+}
+
+.stats-wrapper .stats > div {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.stats-wrapper .chosen-stats {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  padding-left: 1.5rem;
+  top: 6.5rem;
+  left: -0.5rem;
+  z-index: 1;
+}
+
+.stats-wrapper .chart-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.stats-wrapper .chart-container tbody {
+  background-color: rgba(247, 247, 247, 0.9);
+  margin-top: 0.2rem;
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 2px 7px -5px black;
+          box-shadow: 2px 2px 7px -5px black;
+  padding: 0.1rem 0.5rem;
+  color: #003049;
+  font-size: smaller;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 1rem;
+}
+
+.stats-wrapper .chart-container tbody.empty {
+  background-color: unset;
+  -webkit-box-shadow: unset;
+          box-shadow: unset;
+}
+
+.stats-wrapper .chart-container tbody tr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 2.5rem;
+  margin: 0.2rem;
+}
+/*# sourceMappingURL=Stats.css.map */

@@ -1,0 +1,96 @@
+$gap: 15px;
+// .container {
+// 	margin-top: 7rem;
+// 	margin-bottom: 7rem;
+// 	display: grid;
+// 	grid-template-columns: repeat(2, auto);
+// 	place-items: center;
+// 	gap: 7rem;
+  
+// }
+
+// @media (min-width: 600px) {
+// 	.container {
+// 		grid-template-rows: repeat(2, auto);
+// 		grid-template-columns: repeat(3, auto);
+// 	}
+// }
+
+
+#spinner{
+    --size: 100px;
+	// --clr-bg: #272324;
+	// --clr1: #bbbb88;
+	// --clr2: #ccc68d;
+	// --clr3: #eedd99;
+	// --clr4: #eec290;
+	// --clr5: #eeaa88;
+
+
+
+
+
+
+	--clr1: #eae2b7;
+	--clr1: #002f49bb;
+	--clr2: #fcbf49;
+	--clr2: #fcbf49;
+	--clr3: #f78000d0;
+	--clr3: #002f49bb;
+	--clr4: #d62828;
+	--clr5: #002f49bb;
+	--animation-duration: 1000ms;
+	position: static;
+	width: var(--size);
+	height: var(--size);
+
+	.spinner-item {
+		position: absolute;
+		width: var(--item-size);
+		height: var(--item-size);
+		top: calc(50% - var(--item-size) / 2);
+		left: calc(50% - var(--item-size) / 2);
+		border: 4px solid transparent;
+		border-left: 4px solid var(--clr-spinner);
+		border-right: 4px solid var(--clr-spinner);
+		border-radius: 50%;
+		animation: spinner2 var(--animation-duration) linear infinite;
+
+		@keyframes spinner2 {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	}
+
+	.spinner-item:nth-of-type(1) {
+		--item-size: var(--size);
+		--clr-spinner: var(--clr1);
+		border-left: 4px solid var(--clr1);
+	}
+
+	.spinner-item:nth-of-type(2) {
+		--item-size: calc(var(--size) - 15px);
+		--clr-spinner: var(--clr5);
+		border-left: 4px solid var(--clr5);
+	}
+
+	.spinner-item:nth-of-type(3) {
+		--item-size: calc(var(--size) - 30px);
+		--clr-spinner: var(--clr3);
+		border-left: 4px solid var(--clr3);
+	}
+    
+    .spinner-item:nth-of-type(4) {
+		--item-size: calc(var(--size) - 70px);
+		--clr-spinner: var(--clr5);
+		border-left: 4px solid var(--clr5);
+	}
+
+	.spinner-item:nth-of-type(5) {
+        --item-size: calc(var(--size) - 90px)
+        --clr-spinner: var(--clr5);
+		// animation: unset;
+        // background-color: var(--clr5);
+	}
+}

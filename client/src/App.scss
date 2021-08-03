@@ -1,0 +1,76 @@
+$color1: #eae2b7;
+$color2: #fcbf49;
+$color3: #f77f00;
+$color4: #d62828;
+$color5: #003049;
+
+#App {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 4.73rem;
+    // padding-bottom: 0.5em;
+    text-align: center;
+    background-color: rgba($color: #eae2b7, $alpha: 1.0);
+    // color:$color5;
+    
+    #analysis-div{
+        min-height: 87vh;
+        width: 100%;
+        background-image: url('./assets/whaleScraper.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-y: bottom;
+        #analysis{
+            width: 10rem;
+            height: 10rem;
+            margin: 0 auto;
+            background-color: rgba( $color: $color2, $alpha: 0.6);
+            position: relative;
+        }
+        #analysis{
+            height: 60vh;
+                width:90%;
+                position: relative;
+            #title{
+                // margin-top: 3rem;
+            }
+            #analysis-starting-date{
+                position: absolute;
+                bottom: 1rem;
+                right: 1rem;
+                font-size: smaller;
+                opacity: 0.6;
+
+            }
+            #label-average-pie{
+                position: absolute;
+                bottom: 0;
+                width: 10rem;
+                height: 10rem;
+                // background-color: violet;
+            }
+        }
+        .loader{
+            position: absolute;
+            top: 50rem;
+            height: 7rem;
+            width: 7rem;
+            border-radius: 50%;
+            background-color: rgba( $color: $color2, $alpha: 0.6);
+           margin:auto;
+           position: relative;
+        }
+    }
+    #pastes-div{
+        padding-top: 2rem;
+        magin-bottom: 0.5em;
+    }
+    #whale{
+        // margin-top: 64px+16px;
+        width: 0;
+        height: 0;
+        // width: 120%;
+        margin-left: -2%;
+    }
+  }

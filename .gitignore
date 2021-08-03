@@ -1,3 +1,4 @@
 /scraper/node_modules
 /scraper/package-lock.json
-/mongo
+/server/node_modules
+/server/package-lock.json

@@ -3,31 +3,96 @@ services:
   torproxy:
     container_name: torproxy
     image: "dperson/torproxy"
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
     networks: 
         - tor
-  scrapper:
+  scraper:
     restart: always
     container_name: scraper
     build:
         context: ./scraper
         dockerfile: ./Dockerfile
-    entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 30 -- node index.js"
-    links:
-        - mongo
+    entrypoint: "./wait-for-it.sh http://nzxj65x32vh2fkhk.onion/all:9050 -t 15 -- node index.js"
+    environment: 
+        SCRAPER_USERNAME: theuser 
+        SCRAPER_PASSWORD: thepassword
     networks: 
         - db
         - tor
-
+    # volumes:
+    #     - /:/scraper
+    #     - node_modules:/scraper/node_modules
+  mongo-express:
+    # TODO: change configuration for restricted access
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+        - 8081:8081
+    networks:
+        - db
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: iamtheone
+        ME_CONFIG_MONGODB_ADMINPASSWORD: iampasswordfortheone
   mongo:
     container_name: mongo
-    image: mongo
+    build: 
+        context: ./mongo
+        dockerfile: ./Dockerfile
+    ports:
+        - 27017:27017
     networks:
         - db
     restart: always
+    environment: 
+        MONGO_INITDB_ROOT_USERNAME: iamtheone
+        MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
+        SCRAPER_USERNAME: theuser 
+        SCRAPER_PASSWORD: thepassword
+        SERVER_USERNAME: theserver
+        SERVER_PASSWORD: theserverpassword
+#   mongo-rs:
+#     container_name: mongo-rs
+#     image: mongo:latest
+#     networks:
+#         - db
+#         - serverdb
+#     restart: always
+#     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+#     environment: 
+#         MONGO_INITDB_ROOT_USERNAME: iamtheone
+#         MONGO_INITDB_ROOT_PASSWORD: iampasswordfortheone
+#         SCRAPER_USERNAME: theuser 
+#         SCRAPER_PASSWORD: thepassword
+#         SERVER_USERNAME: theserver
+#         SERVER_PASSWORD: theserverpassword
+  server:
+    container_name: server
+    build:
+        context: ./server
+        dockerfile: ./Dockerfile
+    restart: always
+    ports:
+         - 3005:3005
+    environment: 
+        PORT: 3005
+        SERVER_USERNAME: theserver
+        SERVER_PASSWORD: theserverpassword
+    networks:
+        - db
+  client:
+    container_name: client
+    build:
+        context: ./client
+        dockerfile: ./Dockerfile
+    restart: always
+    ports:
+        - 8000:80
 networks: 
     db:
         driver: bridge
     tor:
         driver: bridge
+    # serverdb:
+    #     driver: bridge
+# volumes: 
+#     node_modules:
